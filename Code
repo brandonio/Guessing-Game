@@ -1,0 +1,74 @@
+import java.util.Scanner;
+/**
+ * This is a class implementing a guessing game.  
+ * The computer comes up with a secret number and the user has to guess it.  
+ * Along the way, the computer should give hints like "It's higher", "It's lower", or "You got it!".  
+ * 
+ * Brandon Berookhim and Sania Syed
+ * V1 9/9/14
+ * 
+ */
+public class GuessingGame {
+    public static final int MAX_NUMBER = 100;
+    public static final int MIN_NUMBER = 0;
+    public static void main(String [] args) {
+        playGame();
+    }
+    public static void playGame() {
+        System.out.println("----The Guessing Game----");
+        //this introduces the game title
+        int secretNumber = getRandomNumberBetween(MIN_NUMBER, MAX_NUMBER);
+        //this tells the computer to pick a random number
+        int counter = 1;
+        //this allows the user to know how many tries it took them to guess the number 
+        String userName = getStringFromUser("What is your name?"); 
+        //this prompts the user for their name, which will be used later on
+        System.out.println("Welcome to the Guessing Game, " + userName + ".");
+        System.out.println("May the odds be ever in your favor!");
+        //this wishes the user good luck
+        System.out.println("Guess a number between the min: " + MIN_NUMBER + " and the max: " + MAX_NUMBER);
+        while (true) {
+            //this is a loop, allowing the program to run over and over again
+            int userGuess = getIntFromUser("What is your guess?");
+            if (secretNumber > userGuess) {
+                System.out.println("Higher...");
+                counter++;
+            } else if (secretNumber < userGuess) {
+                    System.out.println("Lower...");
+                    //these statements prompt the user to guess lower or higher
+                    counter++;
+            } else {
+                System.out.println("Congratulations! You got it! It only took you " + counter + " try/tries.");
+                break;
+                //this stops the loops if the number is correct
+            }
+        }
+    }
+    /*
+     * Gives back a "random" integer between min and max
+     */
+    public static int getRandomNumberBetween(int min, int max) {
+        int range = max - min;
+        int randomNumber = (int)(Math.random()*range) + min;
+        return randomNumber;
+    }
+    /*
+     * This method gets an integer from the user.  
+     * Typing in a string will result in a unhandled error.  
+     * We'll learn how to handle those things later.  
+     */
+    public static int getIntFromUser(String prompt) {
+        Scanner userScanner = new Scanner(System.in);
+        System.out.println(prompt);
+        return userScanner.nextInt();
+    }
+    /*
+     * This method gets back a string from the user, such as their name.  
+     */
+    public static String getStringFromUser(String prompt) {
+        Scanner userScanner = new Scanner(System.in);
+        System.out.println(prompt);
+        return userScanner.nextLine();
+    }
+}
+
